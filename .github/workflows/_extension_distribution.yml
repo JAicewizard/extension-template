@@ -169,7 +169,7 @@ jobs:
           GEN: ninja
         run: |
           env
-          vcpkg install --triplet ${{ inputs.vcpkg_triplet }}
+          vcpkg install --triplet ${{ matrix.vcpkg_triplet }}
 
       - name: Build extension
         env:
