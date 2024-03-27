@@ -167,7 +167,7 @@ jobs:
       - name: Build extension
         env:
           GEN: ninja
-          CROSS aarch64-linux-gnu-: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-' || '' }}
+          CROSS: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-' || '' }}
           DUCKDB_PLATFORM: ${{ matrix.duckdb_arch }}
         run: |
           env
