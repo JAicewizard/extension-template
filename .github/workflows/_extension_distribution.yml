@@ -164,14 +164,19 @@ jobs:
           vcpkgGitCommitId: ${{ inputs.vcpkg_commit }}
           vcpkgGitURL: "https://github.com/jaicewizard/vcpkg.git"
 
+      - name: Build dependencies
+        env:
+          GEN: ninja
+        run: |
+          env
+          vcpkg install --triplet ${{ inputs.vcpkg_triplet }}
+
       - name: Build extension
         env:
           GEN: ninja
-          # CC: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-gcc' || '' }}
-          # CXX: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-g++' || '' }}
+          CC: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-gcc' || '' }}
+          CXX: ${{ matrix.duckdb_arch == 'linux_arm64' && 'aarch64-linux-gnu-g++' || '' }}
           DUCKDB_PLATFORM: ${{ matrix.duckdb_arch }}
-          VCPKG_BINARY_SOURCES: "clear"
-          TARGET: ARMV8
         run: |
           env
           make release
