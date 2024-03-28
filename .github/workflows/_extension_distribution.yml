@@ -164,6 +164,11 @@ jobs:
           vcpkgGitCommitId: ${{ inputs.vcpkg_commit }}
           vcpkgGitURL: "https://github.com/jaicewizard/vcpkg.git"
 
+      - name: Install required ubuntu packages
+        if: ${{ matrix.duckdb_arch == 'linux_amd64' || matrix.duckdb_arch == 'linux_arm64' }}
+        run: |
+          apt-get install -y -qq gfortran-aarch64-linux-gnu
+
       - name: Build extension
         env:
           GEN: ninja
